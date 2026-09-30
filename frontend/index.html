@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Employee Management System</h1>
+
+    <div id="message"></div>
+
+    <form id="employeeForm">
+
+        <input type="hidden" id="employeeId">
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Employee Name"
+            required
+        >
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            required
+        >
+
+        <input
+            type="text"
+            id="role"
+            placeholder="Role"
+            required
+        >
+
+        <input
+            type="text"
+            id="department"
+            placeholder="Department"
+            required
+        >
+
+        <button type="submit">Add Employee</button>
+        <button type="button" id="cancelButton" onclick="resetForm()">
+            Cancel
+        </button>
+
+    </form>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="search"
+            placeholder="Search employees..."
+            oninput="filterEmployees()"
+        >
+    </div>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id="employeeTableBody">
+        </tbody>
+
+    </table>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
