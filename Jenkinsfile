@@ -169,35 +169,26 @@ EOF
         }
 
         stage('Deploy') {
-            steps {
-                sh '''
-                    echo "Starting deployment..."
+	    steps {
+       		 sh '''
+	            echo "=========================================="
+	            echo "DEPLOYMENT"
+	            echo "=========================================="
 
-                    docker compose --env-file .env config | grep -E 'image:'
+	            echo "Deployment Version: $IMAGE_TAG"
 
-                    if [ "$ACTION" = "ROLLBACK" ]; then
-                        echo "Performing rollback to image tag $ROLLBACK_TAG"
+	            echo "Removing old application containers..."
+	            docker rm -f employee-backend employee-frontend 2>/dev/null || true
 
-                        docker compose \
-                            --env-file .env \
-                            up -d \
-                            --no-build \
-                            --force-recreate
-                    else
-                        echo "Performing normal deployment of build $BUILD_NUMBER"
+	            echo "Starting application using Docker Compose..."
 
-                        docker compose \
-                            --env-file .env \
-                            up -d \
-                            --force-recreate
-                    fi
+	            docker compose --env-file .env up -d --force-recreate
 
-                    echo "Running containers:"
-                    docker compose --env-file .env ps
-                '''
-            }
-        }
-
+	            echo "Running containers:"
+	            docker compose --env-file .env ps
+	        '''
+	    }
+	}
         stage('Health Check') {
             steps {
                 sh '''
